@@ -1,0 +1,101 @@
+# Jekyll Configuration for Laravel Tron API Package
+theme: jekyll-theme-cayman
+
+# Site Settings
+title: "Laravel Tron API"
+description: "A PHP API for interacting with the Tron Protocol - Laravel Package"
+url: "https://iexbase.github.io"
+baseurl: "/tron-api"
+
+# Repository Information
+repository: "iexbase/tron-api"
+github:
+  repository_url: "https://github.com/iexbase/tron-api"
+  repository_name: "tron-api"
+  owner_name: "iexbase"
+
+# Author Information
+author:
+  name: "IEXBase"
+  email: "support@iexbase.com"
+  url: "https://github.com/iexbase"
+
+# SEO and Social
+lang: "en"
+twitter:
+  username: "iexbase"
+  card: "summary"
+
+# Build Settings
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Navigation
+navigation:
+  - title: "Home"
+    url: "/"
+  - title: "Documentation"
+    url: "/README"
+  - title: "Examples"
+    url: "/examples"
+  - title: "GitHub"
+    url: "https://github.com/iexbase/tron-api"
+
+# Collections
+collections:
+  examples:
+    output: true
+    permalink: /:collection/:name/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+  - scope:
+      path: ""
+      type: "examples"
+    values:
+      layout: "default"
+
+# Exclude from processing
+exclude:
+  - vendor/
+  - composer.json
+  - composer.lock
+  - .travis.yml
+  - .gitignore
+  - phpunit.xml.dist
+  - tests/
+  - src/
+  - config/
+
+# Include in processing
+include:
+  - _pages
+  - examples/
+
+# Sass Configuration
+sass:
+  style: compressed
+  sass_dir: _sass
+
+# Performance
+compress_html:
+  clippings: all
+  comments: all
+  endings: all
+  startings: []
+  blanklines: false
+  profile: false

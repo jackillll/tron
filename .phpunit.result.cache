@@ -1,0 +1,1 @@
+{"version":2,"defects":[],"times":{"IEXBase\\TronAPI\\Tests\\TronTest::test_isValidProvider":0.096,"IEXBase\\TronAPI\\Tests\\TronTest::test_setAddress":0.001,"IEXBase\\TronAPI\\Tests\\TronTest::test_setDefaultBlock":0}}

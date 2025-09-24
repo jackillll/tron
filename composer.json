@@ -1,0 +1,78 @@
+{
+  "name": "jackillll/tron",
+  "description": "A PHP API for interacting with Tron (Trx) blockchain with Laravel integration - Based on iexbase/tron-api",
+  "license": "MIT",
+  "type": "library",
+  "homepage": "https://github.com/jackillll/tron",
+  "support": {
+    "issues": "https://github.com/jackillll/tron/issues",
+    "source": "https://github.com/jackillll/tron",
+    "docs": "https://github.com/jackillll/tron/blob/master/README.md"
+  },
+  "authors": [
+    {
+      "name": "Jackillll",
+      "email": "jackjack75383973@gmail.com"
+    },
+    {
+      "name": "Shamsudin Serderov",
+      "email": "steein.shamsudin@gmail.com",
+      "role": "Original Author"
+    }
+  ],
+  "keywords": [
+    "jackillll",
+    "tron",
+    "tron-lib",
+    "tron-php",
+    "tron-api",
+    "tron-rest-api",
+    "laravel",
+    "laravel-package",
+    "laravel-tron",
+    "blockchain",
+    "cryptocurrency",
+    "trx",
+    "trc20",
+    "smart-contracts",
+    "web3",
+    "dapp"
+  ],
+  "require": {
+    "php": ">=8.1",
+    "guzzlehttp/guzzle": ">=6.0",
+    "simplito/elliptic-php": "^1.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10.0",
+    "laravel/framework": "^10.0|^11.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Jackillll\\Tron\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Jackillll\\Tron\\Test\\": "tests"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Jackillll\\Tron\\TronServiceProvider"
+      ],
+      "aliases": {
+        "Tron": "Jackillll\\Tron\\Facades\\Tron"
+      }
+    },
+    "branch-alias": {
+      "dev-master": "1.0-dev"
+    }
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
