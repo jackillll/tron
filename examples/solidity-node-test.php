@@ -15,7 +15,11 @@ $headers = [
 
 try {
     // 创建 SolidityNode 提供者
-    $solidityProvider = new HttpProvider('https://api.trongrid.io', 30000, false, false, $headers, '/', 'solidity');
+    $solidityProvider = new HttpProvider('https://api.trongrid.io', [
+        'timeout' => 30000,
+        'headers' => $headers,
+        'nodeType' => 'solidity'
+    ]);
     $tronSolidity = new Tron($solidityProvider);
 
     echo "1. SolidityNode 基本信息:\n";
@@ -90,7 +94,11 @@ try {
     echo "\n6. 与 FullNode 的对比测试:\n";
 
     // 创建 FullNode 进行对比
-    $fullNodeProvider = new HttpProvider('https://api.trongrid.io', 30000, false, false, $headers, '/', 'fullnode');
+    $fullNodeProvider = new HttpProvider('https://api.trongrid.io', [
+        'timeout' => 30000,
+        'headers' => $headers,
+        'nodeType' => 'fullnode'
+    ]);
     $tronFullNode = new Tron($fullNodeProvider);
 
     echo "FullNode 连接状态: " . ($fullNodeProvider->isConnected() ? '已连接' : '未连接') . "\n";

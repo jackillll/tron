@@ -16,7 +16,11 @@ echo "=====================================\n\n";
 try {
     // 测试 FullNode
     echo "1. FullNode 测试:\n";
-    $fullNodeProvider = new HttpProvider('https://api.trongrid.io', 30000, false, false, $headers, '/', 'fullnode');
+    $fullNodeProvider = new HttpProvider('https://api.trongrid.io', [
+        'timeout' => 30000,
+        'headers' => $headers,
+        'nodeType' => 'fullnode'
+    ]);
     $tronFullNode = new Tron($fullNodeProvider);
 
     echo "节点类型: " . $fullNodeProvider->getNodeType() . "\n";
@@ -29,7 +33,11 @@ try {
 
     // 测试 SolidityNode
     echo "2. SolidityNode 测试:\n";
-    $solidityNodeProvider = new HttpProvider('https://api.trongrid.io', 30000, false, false, $headers, '/', 'solidity');
+    $solidityNodeProvider = new HttpProvider('https://api.trongrid.io', [
+        'timeout' => 30000,
+        'headers' => $headers,
+        'nodeType' => 'solidity'
+    ]);
     $tronSolidityNode = new Tron($solidityNodeProvider);
 
     echo "节点类型: " . $solidityNodeProvider->getNodeType() . "\n";
@@ -42,7 +50,10 @@ try {
 
     // 动态切换测试
     echo "3. 动态切换测试:\n";
-    $dynamicProvider = new HttpProvider('https://api.trongrid.io', 30000, false, false, $headers);
+    $dynamicProvider = new HttpProvider('https://api.trongrid.io', [
+        'timeout' => 30000,
+        'headers' => $headers
+    ]);
 
     echo "初始状态: " . $dynamicProvider->getNodeType() . "\n";
 

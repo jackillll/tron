@@ -11,9 +11,13 @@ echo "==========================================\n\n";
 try {
     // 1. FullNode 示例
     echo "1. FullNode 配置:\n";
-    $fullNodeProvider = new HttpProvider('https://api.trongrid.io', 30000, false, false, [
-        'TRON-PRO-API-KEY' => '25ab81fb-6ee6-4b43-bab7-a67a8a3638f8'
-    ], '/', 'fullnode');
+    $fullNodeProvider = new HttpProvider('https://api.trongrid.io', [
+        'timeout' => 30000,
+        'headers' => [
+            'TRON-PRO-API-KEY' => '25ab81fb-6ee6-4b43-bab7-a67a8a3638f8'
+        ],
+        'nodeType' => 'fullnode'
+    ]);
 
     $tronFullNode = new Tron($fullNodeProvider);
 
@@ -30,9 +34,13 @@ try {
 
     // 2. SolidityNode 示例
     echo "2. SolidityNode 配置:\n";
-    $solidityNodeProvider = new HttpProvider('https://api.trongrid.io', 30000, false, false, [
-        'TRON-PRO-API-KEY' => '25ab81fb-6ee6-4b43-bab7-a67a8a3638f8'
-    ], '/', 'solidity');
+    $solidityNodeProvider = new HttpProvider('https://api.trongrid.io', [
+        'timeout' => 30000,
+        'headers' => [
+            'TRON-PRO-API-KEY' => '25ab81fb-6ee6-4b43-bab7-a67a8a3638f8'
+        ],
+        'nodeType' => 'solidity'
+    ]);
 
     $tronSolidityNode = new Tron($solidityNodeProvider);
 
@@ -49,8 +57,11 @@ try {
 
     // 3. 动态切换节点类型
     echo "3. 动态切换节点类型:\n";
-    $dynamicProvider = new HttpProvider('https://api.trongrid.io', 30000, false, false, [
-        'TRON-PRO-API-KEY' => '25ab81fb-6ee6-4b43-bab7-a67a8a3638f8'
+    $dynamicProvider = new HttpProvider('https://api.trongrid.io', [
+        'timeout' => 30000,
+        'headers' => [
+            'TRON-PRO-API-KEY' => '25ab81fb-6ee6-4b43-bab7-a67a8a3638f8'
+        ]
     ]);
 
     $tronDynamic = new Tron($dynamicProvider);

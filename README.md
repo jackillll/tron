@@ -1,4 +1,5 @@
 # TRON API
+
 A PHP API for interacting with the Tron Protocol
 
 **Based on [iexbase/tron-api](https://github.com/iexbase/tron-api)**
@@ -9,20 +10,21 @@ A PHP API for interacting with the Tron Protocol
 ## Install
 
 ```bash
-composer require jackillll/tron --ignore-platform-reqs
+composer require jackillll/tron
 ```
 
 ## Requirements
 
 The following versions of PHP are supported by this version.
 
-* PHP 7.4+
+- PHP 7.4+
 
 ## Configuration
 
 This package supports a new, more intuitive configuration structure:
 
 ### New Configuration Structure
+
 ```php
 'network' => 'mainnet',        // Network name: mainnet, testnet, nile
 'use_solidity' => false,       // Boolean: true for Solidity node, false for Full node
@@ -32,7 +34,7 @@ This package supports a new, more intuitive configuration structure:
         'explorer' => 'https://tronscan.org'
     ],
     'testnet' => [
-        'host' => 'https://api.shasta.trongrid.io', 
+        'host' => 'https://api.shasta.trongrid.io',
         'explorer' => 'https://shasta.tronscan.org'
     ],
     'nile' => [
@@ -49,7 +51,7 @@ This package supports a new, more intuitive configuration structure:
 #### 1. Installation in Laravel
 
 ```bash
-composer require iexbase/tron-api --ignore-platform-reqs
+composer require jackillll/tron
 ```
 
 #### 2. Publish Configuration
@@ -74,6 +76,7 @@ TRON_TIMEOUT=30000
 #### 4. Laravel Usage Examples
 
 **Using Dependency Injection:**
+
 ```php
 <?php
 
@@ -103,6 +106,7 @@ class TronController extends Controller
 ```
 
 **Using Facade:**
+
 ```php
 <?php
 
@@ -122,6 +126,7 @@ $blocks = Tron::getLatestBlocks(10);
 ```
 
 **Service Class Example:**
+
 ```php
 <?php
 
@@ -267,7 +272,7 @@ try {
 
     // Work with smart contracts
     $contract = $tron->contract('TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t'); // USDT contract
-    
+
 } catch (\Exception $e) {
     echo "Error: " . $e->getMessage() . "\n";
 }
@@ -278,7 +283,7 @@ try {
 ### Available Networks
 
 - **mainnet**: Tron mainnet (production)
-- **testnet**: Shasta testnet (development)  
+- **testnet**: Shasta testnet (development)
 - **nile**: Nile testnet (development)
 
 ### Node Types
@@ -291,7 +296,7 @@ try {
 ```php
 // Different network instances
 $mainnetTron = TronConfig::create('mainnet');
-$testnetTron = TronConfig::create('testnet'); 
+$testnetTron = TronConfig::create('testnet');
 $nileTron = TronConfig::create('nile');
 
 // Different node types
@@ -443,6 +448,7 @@ try {
 ## API Documentation
 
 For detailed API documentation, please refer to:
+
 - [NEW_CONFIG_GUIDE.md](NEW_CONFIG_GUIDE.md) - New configuration structure guide
 - [Tron Developer Documentation](https://developers.tron.network/)
 - [TronGrid API Documentation](https://www.trongrid.io/docs/)
@@ -456,6 +462,7 @@ composer test
 ## Examples
 
 Check the `examples/` directory for more usage examples:
+
 - `new-config-simple.php` - Basic new configuration usage
 - `config-based-example.php` - Advanced configuration examples
 - `final-verification.php` - Comprehensive feature testing
@@ -463,6 +470,7 @@ Check the `examples/` directory for more usage examples:
 ## Changelog
 
 ### v2.0.0
+
 - ✅ New configuration structure with `network` and `use_solidity`
 - ✅ TronConfig helper class for easier setup
 - ✅ Support for multiple networks (mainnet, testnet, nile)
@@ -476,6 +484,3 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE) for more information.
-
-## Donations
-**Tron(TRX)**: TRWBqiqoFZysoAeyR1J35ibuyc8EvhUAoY

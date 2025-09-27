@@ -71,15 +71,11 @@ class TronServiceProvider extends ServiceProvider
             // Determine node type based on use_solidity boolean
             $nodeType = $useSolidity ? 'solidity' : 'fullnode';
 
-            $httpProvider = new HttpProvider(
-                $host, 
-                $timeout, 
-                false, 
-                false, 
-                $headers, 
-                '/', 
-                $nodeType
-            );
+            $httpProvider = new HttpProvider($host, [
+                'timeout' => $timeout,
+                'headers' => $headers,
+                'nodeType' => $nodeType
+            ]);
 
             return new Tron($httpProvider);
         });

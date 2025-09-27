@@ -13,7 +13,10 @@ echo "自定义节点配置示例:\n";
 
 // 方法1: 使用单个HttpProvider（推荐）
 try {
-    $httpProvider = new HttpProvider('https://api.trongrid.io', 30000, false, false, $headers);
+    $httpProvider = new HttpProvider('https://api.trongrid.io', [
+        'timeout' => 30000,
+        'headers' => $headers
+    ]);
     $tron = new Tron($httpProvider);
 
     echo "方法1 - 单个HttpProvider: 初始化成功\n";
@@ -28,14 +31,22 @@ try {
 // 方法2: 使用不同节点类型
 try {
     // FullNode 配置
-    $fullNode = new HttpProvider('https://api.trongrid.io', 30000, false, false, $headers, '/', 'fullnode');
+    $fullNode = new HttpProvider('https://api.trongrid.io', [
+        'timeout' => 30000,
+        'headers' => $headers,
+        'nodeType' => 'fullnode'
+    ]);
     $tronFullNode = new Tron($fullNode);
 
     echo "方法2a - FullNode: 初始化成功\n";
     echo "节点类型: " . $fullNode->getNodeType() . "\n";
 
     // SolidityNode 配置
-    $solidityNode = new HttpProvider('https://api.trongrid.io', 30000, false, false, $headers, '/', 'solidity');
+    $solidityNode = new HttpProvider('https://api.trongrid.io', [
+        'timeout' => 30000,
+        'headers' => $headers,
+        'nodeType' => 'solidity'
+    ]);
     $tronSolidityNode = new Tron($solidityNode);
 
     echo "方法2b - SolidityNode: 初始化成功\n";
@@ -46,7 +57,10 @@ try {
 
 // 方法3: 动态切换节点类型
 try {
-    $dynamicProvider = new HttpProvider('https://api.trongrid.io', 30000, false, false, $headers);
+    $dynamicProvider = new HttpProvider('https://api.trongrid.io', [
+        'timeout' => 30000,
+        'headers' => $headers
+    ]);
     $tronDynamic = new Tron($dynamicProvider);
 
     echo "方法3 - 动态切换节点类型:\n";
