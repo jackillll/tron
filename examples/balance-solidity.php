@@ -1,13 +1,20 @@
 <?php
 include_once __DIR__ . '/../vendor/autoload.php';
 
+use Jackillll\Tron\Tron;
+use Jackillll\Tron\Provider\HttpProvider;
+
 // 使用提供的API token
 $headers = [
     'TRON-PRO-API-KEY' => '25ab81fb-6ee6-4b43-bab7-a67a8a3638f8'
 ];
 
-// 使用solidity节点
-$httpProvider = new \Jackillll\Tron\Provider\HttpProvider('https://api.trongrid.io', 30000, false, false, [], '/', 'solidity');
+// 使用solidity节点 - 新的构造方式
+$httpProvider = new HttpProvider('https://api.trongrid.io', [
+    'timeout' => 30000,
+    'headers' => $headers,
+    'nodeType' => 'solidity'
+]);
 
 try {
     $tron = new \Jackillll\Tron\Tron($httpProvider);

@@ -115,7 +115,7 @@ class TRC20Contract
             $abi = file_get_contents(__DIR__ . '/trc20.json');
         }
 
-        $this->abiData = json_decode($abi, true);
+        $this->abiData         = json_decode($abi, true);
         $this->contractAddress = $contractAddress;
     }
 
@@ -137,9 +137,9 @@ class TRC20Contract
      */
     public function clearCached(): void
     {
-        $this->_name = null;
-        $this->_symbol = null;
-        $this->_decimals = null;
+        $this->_name        = null;
+        $this->_symbol      = null;
+        $this->_decimals    = null;
         $this->_totalSupply = null;
     }
 
@@ -151,9 +151,9 @@ class TRC20Contract
     public function array(): array
     {
         return [
-            'name' => $this->name(),
-            'symbol' => $this->symbol(),
-            'decimals' => $this->decimals(),
+            'name'        => $this->name(),
+            'symbol'      => $this->symbol(),
+            'decimals'    => $this->decimals(),
             'totalSupply' => $this->totalSupply(true)
         ];
     }
@@ -171,7 +171,7 @@ class TRC20Contract
         }
 
         $result = $this->trigger('name', null, []);
-        $name = $result[0] ?? $result[''] ?? null;
+        $name   = $result[0] ?? $result[''] ?? null;
 
         if (!is_string($name)) {
             throw new TRC20Exception('Failed to retrieve TRC20 token name');
@@ -193,7 +193,7 @@ class TRC20Contract
             return $this->_symbol;
         }
         $result = $this->trigger('symbol', null, []);
-        $code = $result[0] ?? $result[''] ?? null;
+        $code   = $result[0] ?? $result[''] ?? null;
 
         if (!is_string($code)) {
             throw new TRC20Exception('Failed to retrieve TRRC20 token symbol');
@@ -215,7 +215,7 @@ class TRC20Contract
     {
         if (!$this->_totalSupply) {
 
-            $result = $this->trigger('totalSupply', null, []);
+            $result      = $this->trigger('totalSupply', null, []);
             $totalSupply = ($result[0] ?? $result[''] ?? null);
 
             if (!is_string($totalSupply) || !preg_match('/^[0-9]+$/', $totalSupply)) {
@@ -241,7 +241,7 @@ class TRC20Contract
         }
 
         $result = $this->trigger('decimals', null, []);
-        $scale = intval($result[0] ?? $result[''] ?? null);
+        $scale  = intval($result[0] ?? $result[''] ?? null);
 
         if (is_null($scale)) {
             throw new TRC20Exception('Failed to retrieve TRC20 token decimals/scale value');
@@ -265,8 +265,8 @@ class TRC20Contract
         if (is_null($address))
             $address = $this->_tron->address['base58'];
 
-        $addr = str_pad($this->_tron->address2HexString($address), 64, "0", STR_PAD_LEFT);
-        $result = $this->trigger('balanceOf', $address, [$addr]);
+        $addr    = str_pad($this->_tron->address2HexString($address), 64, "0", STR_PAD_LEFT);
+        $result  = $this->trigger('balanceOf', $address, [$addr]);
         $balance = ($result[0] ?? $result[''] ?? null);
 
         if (!is_string($balance) || !preg_match('/^[0-9]+$/', $balance)) {
@@ -315,7 +315,7 @@ class TRC20Contract
             );
 
         $signedTransaction = $this->_tron->signTransaction($transfer);
-        $response = $this->_tron->sendRawTransaction($signedTransaction);
+        $response          = $this->_tron->sendRawTransaction($signedTransaction);
 
         return array_merge($response, $signedTransaction);
     }
@@ -324,15 +324,27 @@ class TRC20Contract
      *  TRC20 All transactions
      *
      * @param string $address
+     * @param bool $onlyTo
+     * @param bool $onlyFrom
+     * @param bool $onlyConfirmed
+     * @param string $fingerprint
      * @param int $limit
      * @return array
      *
      * @throws TronException
      */
-    public function getTransactions(string $address, int $limit = 100): array
+    public function getTransactions(string $address, bool $onlyTo = false, bool $onlyFrom = false, bool $onlyConfirmed = false, string $fingerprint = '', int $limit = 20): array
     {
+        $query = http_build_query([
+            'contract_address' => $this->contractAddress,
+            'limit'            => $limit,
+            'fingerprint'      => $fingerprint,
+            'only_to'          => $onlyTo,
+            'only_from'        => $onlyFrom,
+            'only_confirmed'   => $onlyConfirmed
+        ]);
         return $this->_tron->getManager()
-            ->request("v1/accounts/{$address}/transactions/trc20?limit={$limit}&contract_address={$this->contractAddress}", [], 'get');
+            ->request("v1/accounts/{$address}/transactions/trc20?" . $query, [], 'get');
     }
 
     /**

@@ -407,10 +407,16 @@ class HttpProvider implements HttpProviderInterface
             throw new TronException('The method is not defined');
         }
 
-        // Add solidity prefix for solidity node requests
+        // Handle solidity node requests correctly
         if ($this->nodeType === 'solidity') {
-            // Only add solidity prefix if not already present and not for wallet endpoints
-            if (strpos($url, 'solidity/') !== 0 && strpos($url, 'wallet/') !== 0) {
+            // For traditional wallet APIs, they should already have the correct walletsolidity/ prefix
+            // For new v1 APIs, they should start with /v1/ and don't need modification
+            // Only add solidity/ prefix for legacy APIs that don't start with wallet or v1
+            if (strpos($url, 'walletsolidity/') !== 0 && 
+                strpos($url, 'wallet/') !== 0 && 
+                strpos($url, '/v1/') !== 0 && 
+                strpos($url, 'v1/') !== 0 &&
+                strpos($url, 'solidity/') !== 0) {
                 $url = 'solidity/' . $url;
             }
         }
