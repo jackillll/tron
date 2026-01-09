@@ -563,7 +563,7 @@ class Tron implements TronInterface
      * @return array
      * @throws TronException
      */
-    public function getAccount(string $address = null): array
+    公共 function getAccount(string $address = null): array
     {
         $address = (!is_null($address) ? $this->toHex($address) : $this->address['hex']);
 
@@ -1590,10 +1590,11 @@ class Tron implements TronInterface
      * @param bool $lock Whether to lock the delegation
      * @param int $lockPeriod Lock period in rounds (if lock is true)
      * @param string|null $ownerAddress Owner address (optional, uses default if not provided)
+     * @param int $permission_id Optional. Permission ID used for multi-signature.
      * @return array
      * @throws TronException
      */
-    public function delegateResource(string $receiverAddress, int $balance, string $resource = 'BANDWIDTH', bool $lock = false, int $lockPeriod = 0, ?string $ownerAddress = null): array
+    public function delegateResource(string $receiverAddress, int $balance, string $resource = 'BANDWIDTH', bool $lock = false, int $lockPeriod = 0, ?string $ownerAddress = null, ?int $permission_id = null): array
     {
         if (empty($receiverAddress)) {
             throw new TronException('Receiver address is required');
@@ -1627,6 +1628,9 @@ class Tron implements TronInterface
         if ($lock) {
             $params['lock_period'] = $lockPeriod;
         }
+        if ($permission_id !== null) {
+            $params['permission_id'] = $permission_id;
+        }
 
         return $this->manager->request('/wallet/delegateresource', $params);
     }
@@ -1638,10 +1642,11 @@ class Tron implements TronInterface
      * @param int $balance Amount to undelegate in SUN
      * @param string $resource Resource type: 'BANDWIDTH' or 'ENERGY'
      * @param string|null $ownerAddress Owner address (optional, uses default if not provided)
+     * @param int $permission_id Optional. Permission ID used for multi-signature.
      * @return array
      * @throws TronException
      */
-    public function undelegateResource(string $receiverAddress, int $balance, string $resource = 'BANDWIDTH', ?string $ownerAddress = null): array
+    public function undelegateResource(string $receiverAddress, int $balance, string $resource = 'BANDWIDTH', ?string $ownerAddress = null, ?int $permission_id = null): array
     {
         if (empty($receiverAddress)) {
             throw new TronException('Receiver address is required');
@@ -1660,12 +1665,17 @@ class Tron implements TronInterface
             throw new TronException('Owner address is required');
         }
 
-        return $this->manager->request('/wallet/undelegateresource', [
+        $params = [
             'owner_address' => $owner,
             'receiver_address' => $receiverAddress,
             'balance' => $balance,
             'resource' => $resource
-        ]);
+        ];
+
+        if ($permission_id !== null) {
+            $params['permission_id'] = $permission_id;
+        }
+        return $this->manager->request('/wallet/undelegateresource', $params);
     }
 
     /**
@@ -1695,7 +1705,7 @@ class Tron implements TronInterface
      * @return array
      * @throws TronException
      */
-    public function getDelegatedResourceAccountIndex(?string $address = null): array
+    公共 function getDelegatedResourceAccountIndex(?string $address = null): array
     {
         $accountAddress = $address ?: $this->address['hex'];
         if (!$accountAddress) {
